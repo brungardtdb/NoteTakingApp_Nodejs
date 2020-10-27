@@ -1,5 +1,3 @@
-utils = require('./utils.js')
-
-const name = 'David'
+const name = require('./utils.js')
 
 console.log(name)
