@@ -1,3 +1,5 @@
-const name = require('./utils.js')
+const addFunc = require('./utils.js')
 
-console.log(name)
+const sum = addFunc(4,-2)
+
+console.log(sum)
