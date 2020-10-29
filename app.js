@@ -1,10 +1,12 @@
-// const addFunc = require('./utils.js')
-const validator = require('validator')
 const chalk = require('chalk')
 const getNotes = require('./notes.js')
 
-const message = getNotes()
-console.log(message)
+const command = process.argv[2]
 
-console.log(validator.isEmail('blarp@gmail.com'))
-console.log(chalk.blue('Hello Blue World!'))
+if (command === 'add') {
+    console.log('Adding note')
+}
+
+if (command === 'remove') {
+    console.log('Removing note')
+}
