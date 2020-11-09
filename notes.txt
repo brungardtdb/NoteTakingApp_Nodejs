@@ -1,2 +1,0 @@
-My name is David.
-I am having fun learning node.js!
