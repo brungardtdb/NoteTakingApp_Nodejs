@@ -1,4 +1,5 @@
 const fs = require('fs')
+const { array } = require('yargs')
 
 const getNotes = function () {
     return 'Your notes...'
@@ -8,63 +9,72 @@ const addNote = function (title, body) {
     
     const notes = loadNotes()
 
-    // Create new note object from function argument
-    const note ={
+    // Check notes for duplicate titles
+    const duplicateNotes = notes.filter(function (note) {
+        return note.title === title
+    })
+
+    if (duplicateNotes.length === 0) {
+
+        // Add new note to list
+    notes.push({
         title: title, 
         body: body
+    })
+
+    // Save notes if no duplicates found and inform user
+    saveNotes(notes)
+    console.log("Notes added.")
+
+    } else { // Note title already exists
+        console.log("Note already exists!!!")
+    }
+}
+
+const removeNote = function (title) {
+    
+    const notes = loadNotes()
+
+    // Check notes for title of note to be removed
+    const remainingNotes = notes.filter(function (note){
+        return note.title !== title
+    })
+
+    if (notes.length === remainingNotes.length) {
+        console.log("Note not found!!!")
+    } else {
+        saveNotes(remainingNotes)
+        console.log("Note has been removed.")
     }
 
-    // Convert note object to JSON string
-    const noteString = JSON.stringify(note)
+}
 
-    if (!(notes === null)) {
+const saveNotes = function(notes) {
 
-        try {
-            // If file exists, append to file
-            console.log("Appending to file")
-            fs.appendFileSync('notes.json', noteString)
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
-    else { // If notes is null, file has not been created
-        
-        try {
-            console.log("Writing file")
-            fs.writeFileSync('notes.json', noteString)
-        } catch (error) {
-            console.log(error)
-        }
-        
-    }
+    // Convert data to JSON string and save to file
+    const dataJSON = JSON.stringify(notes)
+    fs.writeFileSync('notes.json', dataJSON)
 
 }
 
 const loadNotes = function() {
     
-    // Check to see if file for notes exists
-    if (fs.existsSync('notes.json')) {
-
         try {
             // Return JSON data if file exists
             // Data must be converted from buffer, to string, to JSON object
             const dataBuffer = fs.readFileSync('notes.json')
             const dataJSON = dataBuffer.toString()
-            const data = JSON.parse(dataJSON)
-            return dataJSON            
-        } catch (error) {
-            console.log(error)
-        }        
+            return JSON.parse(dataJSON)         
 
-    } else {
-        // Return null if file doesn't exist
-        return null
-    }
+        } catch (error) {
+            // Return empty list if file isn't found
+            return []
+        }        
 }
 
 
 module.exports = {
     getNotes: getNotes,
-    addNote: addNote
+    addNote: addNote,
+    removeNote: removeNote
 }
