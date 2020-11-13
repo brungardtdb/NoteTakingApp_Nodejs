@@ -1,0 +1,11 @@
+This application was my introduction to node.js. This was a part of a node.js
+bootcamp on Udemy. This is also a bit of an introduction to Javascript for me.
+This application is just a simple command line application that allows you to
+use commands to add and remove notes to a JSON file, you can also list the note
+titles and read a note by providing the title.
+
+Here is the URL for the Udemy course on node.js:
+https://www.udemy.com/course/the-complete-nodejs-developer-course-2/
+
+I look forward to learning more about node.js and actually developing some
+web applications using node.js!
