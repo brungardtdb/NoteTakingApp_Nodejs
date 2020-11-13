@@ -57,7 +57,7 @@ const listNotes = () => {
 }
 
 const logMessage = (message) => {
-    console.log(chalk.bgBlue.bold(message))
+    console.log(chalk.bgCyan.bold.italic(message))
 }
 
 const logError = (message) => {
