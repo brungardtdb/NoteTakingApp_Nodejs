@@ -45,6 +45,17 @@ const removeNote = (title) => {
     }
 }
 
+const listNotes = () => {
+
+    const notes = loadNotes()
+
+    // Print title for each note
+    logMessage("Your Notes: ")
+    notes.forEach(note => {
+        logMessage(note.title)        
+    });
+}
+
 const logMessage = (message) => {
     console.log(chalk.bgBlue.bold(message))
 }
@@ -80,5 +91,6 @@ const loadNotes = () => {
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes
 }
