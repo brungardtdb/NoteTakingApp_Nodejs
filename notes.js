@@ -1,18 +1,17 @@
 const fs = require('fs')
+const chalk = require('chalk')
 const { array } = require('yargs')
 
-const getNotes = function () {
+const getNotes = () => {
     return 'Your notes...'
 }
 
-const addNote = function (title, body) {
+const addNote = (title, body) => {
     
     const notes = loadNotes()
 
     // Check notes for duplicate titles
-    const duplicateNotes = notes.filter(function (note) {
-        return note.title === title
-    })
+    const duplicateNotes = notes.filter((note) =>  note.title === title)
 
     if (duplicateNotes.length === 0) {
 
@@ -24,32 +23,37 @@ const addNote = function (title, body) {
 
     // Save notes if no duplicates found and inform user
     saveNotes(notes)
-    console.log("Notes added.")
+    logMessage("Notes added.")
 
     } else { // Note title already exists
-        console.log("Note already exists!!!")
+        logError("Note already exists!!!")
     }
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
     
     const notes = loadNotes()
 
     // Check notes for title of note to be removed
-    const remainingNotes = notes.filter(function (note){
-        return note.title !== title
-    })
+    const remainingNotes = notes.filter((note) => note.title !== title)
 
     if (notes.length === remainingNotes.length) {
-        console.log("Note not found!!!")
+        logError("Note not found!!!")
     } else {
         saveNotes(remainingNotes)
-        console.log("Note has been removed.")
+        logMessage("Note has been removed.")
     }
-
 }
 
-const saveNotes = function(notes) {
+const logMessage = (message) => {
+    console.log(chalk.bgBlue.bold(message))
+}
+
+const logError = (message) => {
+    console.log(chalk.bgRed.bold(message))
+}
+
+const saveNotes = (notes) => {
 
     // Convert data to JSON string and save to file
     const dataJSON = JSON.stringify(notes)
@@ -57,7 +61,7 @@ const saveNotes = function(notes) {
 
 }
 
-const loadNotes = function() {
+const loadNotes = () => {
     
         try {
             // Return JSON data if file exists
